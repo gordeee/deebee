@@ -26,6 +26,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // Check active sessions and sets the user
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session check:', session);
       setUser(session?.user ?? null);
       setLoading(false);
     });
@@ -45,7 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://deebee.ai',
+          redirectTo: 'https://www.deebeeai.com',
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -58,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw error;
       }
 
-      console.log('Google sign in successful:', data);
+      console.log('Google sign in response:', data);
     } catch (error) {
       console.error('Failed to sign in with Google:', error);
       throw error;
