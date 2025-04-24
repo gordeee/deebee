@@ -1,7 +1,7 @@
 import React from 'react';
-import { Alert, AlertDescription, AlertTitle } from '../ui/Alert';
+import { Alert, AlertTitle, AlertDescription } from '../ui/Alert';
 import { Terminal, Shield } from 'lucide-react';
-import { Button } from '../ui/Button';
+import Button from '../ui/Button';
 
 export const SSHTunnelInstructions: React.FC = () => {
   const copyToClipboard = (text: string) => {
