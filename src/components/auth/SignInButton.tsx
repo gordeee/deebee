@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { LogIn } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
@@ -7,16 +7,17 @@ const SignInButton: React.FC = () => {
   const { signInWithGoogle } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = async () => {
+  const handleSignIn = useCallback(async () => {
+    if (isLoading) return;
+    
     try {
       setIsLoading(true);
       await signInWithGoogle();
     } catch (error) {
       console.error('Sign in error:', error);
-    } finally {
       setIsLoading(false);
     }
-  };
+  }, [isLoading, signInWithGoogle]);
 
   return (
     <Button
