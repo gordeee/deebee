@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Database } from 'lucide-react';
 import Logo from '../ui/Logo';
 import SignInButton from '../auth/SignInButton';
 import UserMenu from '../auth/UserMenu';
 import AnalysisHistory from '../analysis/AnalysisHistory';
 import { useAuth } from '../../context/AuthContext';
+import { DatabaseModal } from '../monitoring/DatabaseModal';
 
 interface SidebarProps {
   isMobileMenuOpen: boolean;
@@ -59,6 +60,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, toggleMobileMenu })
 
 const SidebarContent = () => {
   const { user } = useAuth();
+  const [showDatabaseModal, setShowDatabaseModal] = useState(false);
+
+  const handleConnect = (connectionDetails: any) => {
+    console.log('Connecting to database:', connectionDetails);
+    setShowDatabaseModal(false);
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -67,6 +74,15 @@ const SidebarContent = () => {
       </div>
       
       <nav className="mt-8 flex-1">
+        {user && (
+          <button
+            onClick={() => setShowDatabaseModal(true)}
+            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 rounded-md mb-4"
+          >
+            <Database size={16} />
+            Sign in to monitor databases
+          </button>
+        )}
         <AnalysisHistory />
       </nav>
       
@@ -74,6 +90,12 @@ const SidebarContent = () => {
         {user ? <UserMenu /> : <SignInButton />}
         <div className="text-xs text-gray-500 mt-4">DeeBee v0.1.0</div>
       </div>
+
+      <DatabaseModal 
+        isOpen={showDatabaseModal}
+        onClose={() => setShowDatabaseModal(false)}
+        onConnect={handleConnect}
+      />
     </div>
   );
 };

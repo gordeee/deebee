@@ -1,12 +1,14 @@
+@import './styles/theme.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --primary: 240 84% 60%;
-    --primary-dark: 240 84% 48%;
-    --primary-light: 240 84% 72%;
+    --primary: 240 83% 60%;
+    --primary-dark: 240 83% 48%;
+    --primary-light: 240 83% 72%;
     --primary-foreground: 0 0% 100%;
     
     --secondary: 217 91% 60%;

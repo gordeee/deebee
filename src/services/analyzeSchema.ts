@@ -1,6 +1,7 @@
 import { analyzeSchemaWithOpenAI } from './openai';
 import { AnalysisResult } from '../types/analysis';
 import { supabase } from '../lib/supabase';
+import { withSessionRetry } from '../lib/session';
 
 export async function analyzeSchema(schema: string): Promise<AnalysisResult> {
   try {
@@ -11,11 +12,14 @@ export async function analyzeSchema(schema: string): Promise<AnalysisResult> {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
-      // Save the analysis result to Supabase
-      await supabase.from('analysis_results').insert({
-        user_id: user.id,
-        schema_text: schema,
-        analysis: result
+      // Save the analysis result to Supabase with session retry
+      await withSessionRetry(async () => {
+        const { error } = await supabase.from('analysis_results').insert({
+          user_id: user.id,
+          schema_text: schema,
+          analysis: result
+        });
+        if (error) throw error;
       });
     }
 

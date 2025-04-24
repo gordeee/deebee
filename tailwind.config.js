@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#4848ED',
-          dark: '#3A3ABD',
-          light: '#6666F1',
-          foreground: '#FFFFFF',
+          DEFAULT: 'hsl(var(--primary))',
+          dark: 'hsl(var(--primary-dark))',
+          light: 'hsl(var(--primary-light))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
           DEFAULT: 'hsl(217, 91%, 60%)',

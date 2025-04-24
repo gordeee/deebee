@@ -1,0 +1,14 @@
+@layer base {
+  :root {
+    /* Base colors */
+    --color-primary: 240 83% 60%;
+    --color-primary-dark: 240 83% 48%;
+    --color-primary-light: 240 83% 72%;
+
+    /* Semantic tokens */
+    --primary: var(--color-primary);
+    --primary-dark: var(--color-primary-dark);
+    --primary-light: var(--color-primary-light);
+    --primary-foreground: 0 0% 100%;
+  }
+} 
