@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 240 84% 60%;
+    --primary-dark: 240 84% 48%;
+    --primary-light: 240 84% 72%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 151 85% 40%;
+    --accent-foreground: 0 0% 100%;
+    
+    --background: 240 10% 4%;
+    --foreground: 240 10% 90%;
+
+    --card: 240 6% 10%;
+    --card-foreground: 0 0% 90%;
+
+    --success: 160 84% 39%;
+    --warning: 35 92% 51%;
+    --error: 0 84% 60%;
+  }
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom scrollbar for code elements */
+  pre::-webkit-scrollbar,
+  code::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  pre::-webkit-scrollbar-track,
+  code::-webkit-scrollbar-track {
+    @apply bg-gray-800 rounded-md;
+  }
+
+  pre::-webkit-scrollbar-thumb,
+  code::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-md;
+  }
+
+  pre::-webkit-scrollbar-thumb:hover,
+  code::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}

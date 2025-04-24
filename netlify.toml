@@ -1,0 +1,38 @@
+[build]
+base = "."
+command = "npm run build"
+publish = "dist"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+force = true
+
+[[redirects]]
+from = "https://deebeeai.com/*"
+to = "https://www.deebeeai.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "http://deebeeai.com/*"
+to = "https://www.deebeeai.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "http://www.deebeeai.com/*"
+to = "https://www.deebeeai.com/:splat"
+status = 301
+force = true
+
+[[headers]]
+for = "/*"
+[headers.values]
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+X-XSS-Protection = "1; mode=block"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Content-Security-Policy = "default-src 'self' https://ilomxrbiyrybokbapasx.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://ilomxrbiyrybokbapasx.supabase.co wss://ilomxrbiyrybokbapasx.supabase.co;"
