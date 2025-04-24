@@ -4,8 +4,8 @@ command = "NODE_ENV=production CI=false npm install --include=dev && npm run bui
 publish = "dist"
 
 [build.environment]
-VITE_SUPABASE_URL = "https://ilomxrbiyrybokbapasx.supabase.co"
-VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlsb214cmJpeXJ5Ym9rYmFwYXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI0OTg0MTcsImV4cCI6MjAxODA3NDQxN30.GQDJZqCkqWyLYxz9ELG_JRgXgEGNyxQWgRJ_xHahxVo"
+VITE_SUPABASE_URL = "https://iqxqzjgbxjxjjxwqhpxm.supabase.co"
+VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxeHF6amdiempxamp4d3FocHhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI0OTg0MTgsImV4cCI6MjAxODA3NDQxOH0.ndGwXrWd_FvJvHVNxJnoI6e-fYYTd6juYCq9DpXTRhE"
 
 [[redirects]]
 from = "/*"
@@ -39,7 +39,7 @@ X-Frame-Options = "DENY"
 X-Content-Type-Options = "nosniff"
 X-XSS-Protection = "1; mode=block"
 Referrer-Policy = "strict-origin-when-cross-origin"
-Content-Security-Policy = "default-src 'self' https://ilomxrbiyrybokbapasx.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://deebeeai.com https://www.deebeeai.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://ilomxrbiyrybokbapasx.supabase.co wss://ilomxrbiyrybokbapasx.supabase.co;"
+Content-Security-Policy = "default-src 'self' https://iqxqzjgbxjxjjxwqhpxm.supabase.co https://accounts.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://deebeeai.com https://www.deebeeai.com https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://iqxqzjgbxjxjjxwqhpxm.supabase.co wss://iqxqzjgbxjxjjxwqhpxm.supabase.co https://accounts.google.com; frame-src 'self' https://accounts.google.com;"
 Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
