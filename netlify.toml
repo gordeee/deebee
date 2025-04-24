@@ -3,6 +3,10 @@ base = "."
 command = "NODE_ENV=production CI=false npm install --include=dev && npm run build"
 publish = "dist"
 
+[build.environment]
+VITE_SUPABASE_URL = "https://ilomxrbiyrybokbapasx.supabase.co"
+VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlsb214cmJpeXJ5Ym9rYmFwYXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI0OTg0MTcsImV4cCI6MjAxODA3NDQxN30.GQDJZqCkqWyLYxz9ELG_JRgXgEGNyxQWgRJ_xHahxVo"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"

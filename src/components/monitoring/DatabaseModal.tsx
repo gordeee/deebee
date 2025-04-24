@@ -5,6 +5,7 @@ import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { Checkbox } from '../ui/Checkbox';
 import { SSHTunnelInstructions } from './SSHTunnelInstructions';
+import { Database, Shield, X } from 'lucide-react';
 
 interface DatabaseModalProps {
   isOpen: boolean;
@@ -21,7 +22,8 @@ export interface DatabaseConnectionDetails {
   useSSH: boolean;
   sshHost?: string;
   sshUsername?: string;
-  sshKeyPath?: string;
+  privateKey?: string;
+  localPort?: string;
 }
 
 export const DatabaseModal: React.FC<DatabaseModalProps> = ({
@@ -37,8 +39,9 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
     password: '',
     useSSH: false,
     sshHost: '',
-    sshUsername: '',
-    sshKeyPath: '',
+    sshUsername: 'deebeee',
+    privateKey: '',
+    localPort: '15432',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -46,7 +49,7 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
     onConnect(connectionDetails);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setConnectionDetails((prev) => ({
       ...prev,
@@ -63,119 +66,93 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-lg bg-[#0D1117] border-gray-800">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </button>
+
         <DialogHeader>
-          <DialogTitle>Connect to Database</DialogTitle>
+          <div className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-primary" />
+            <DialogTitle className="text-xl font-semibold">SSH tunnel configuration</DialogTitle>
+          </div>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit} className="space-y-6 mt-6">
           <div className="space-y-2">
-            <Label htmlFor="host">Host</Label>
+            <Label htmlFor="sshHost" className="text-base font-normal">Bastion host public IP or hostname</Label>
             <Input
-              id="host"
-              name="host"
-              value={connectionDetails.host}
+              id="sshHost"
+              name="sshHost"
+              value={connectionDetails.sshHost}
               onChange={handleInputChange}
-              placeholder="localhost"
-              required
+              placeholder="bastion.example.com"
+              required={connectionDetails.useSSH}
+              className="bg-[#1C2128] border-gray-800 focus:border-primary focus:ring-0 text-base"
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="port">Port</Label>
-            <Input
-              id="port"
-              name="port"
-              value={connectionDetails.port}
-              onChange={handleInputChange}
-              placeholder="5432"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="database">Database</Label>
-            <Input
-              id="database"
-              name="database"
-              value={connectionDetails.database}
-              onChange={handleInputChange}
-              placeholder="my_database"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              name="username"
-              value={connectionDetails.username}
-              onChange={handleInputChange}
-              placeholder="postgres"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              value={connectionDetails.password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="useSSH"
-              checked={connectionDetails.useSSH}
-              onCheckedChange={handleCheckboxChange}
-            />
-            <Label htmlFor="useSSH">Use SSH Tunnel</Label>
           </div>
 
-          {connectionDetails.useSSH && (
-            <>
-              <div className="space-y-2">
-                <Label htmlFor="sshHost">SSH Host</Label>
-                <Input
-                  id="sshHost"
-                  name="sshHost"
-                  value={connectionDetails.sshHost}
-                  onChange={handleInputChange}
-                  placeholder="example.com"
-                  required={connectionDetails.useSSH}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="sshUsername">SSH Username</Label>
-                <Input
-                  id="sshUsername"
-                  name="sshUsername"
-                  value={connectionDetails.sshUsername}
-                  onChange={handleInputChange}
-                  placeholder="ubuntu"
-                  required={connectionDetails.useSSH}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="sshKeyPath">SSH Key Path</Label>
-                <Input
-                  id="sshKeyPath"
-                  name="sshKeyPath"
-                  value={connectionDetails.sshKeyPath}
-                  onChange={handleInputChange}
-                  placeholder="~/.ssh/id_rsa"
-                  required={connectionDetails.useSSH}
-                />
-              </div>
-              <SSHTunnelInstructions />
-            </>
-          )}
+          <div className="space-y-2">
+            <Label htmlFor="sshUsername" className="text-base font-normal">SSH username (deebeee)</Label>
+            <Input
+              id="sshUsername"
+              name="sshUsername"
+              value={connectionDetails.sshUsername}
+              onChange={handleInputChange}
+              placeholder="deebeee"
+              required={connectionDetails.useSSH}
+              className="bg-[#1C2128] border-gray-800 focus:border-primary focus:ring-0 text-base"
+            />
+          </div>
 
-          <div className="flex justify-end space-x-2">
-            <Button variant="outline" type="button" onClick={onClose}>
+          <div className="space-y-2">
+            <Label htmlFor="privateKey" className="text-base font-normal">Private key</Label>
+            <textarea
+              id="privateKey"
+              name="privateKey"
+              value={connectionDetails.privateKey}
+              onChange={handleInputChange}
+              placeholder="-----BEGIN RSA PRIVATE KEY-----"
+              required={connectionDetails.useSSH}
+              rows={6}
+              className="w-full rounded-md bg-[#1C2128] border border-gray-800 focus:border-primary focus:ring-0 text-base p-3 font-mono"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="localPort" className="text-base font-normal">Local port (15432)</Label>
+            <Input
+              id="localPort"
+              name="localPort"
+              value={connectionDetails.localPort}
+              onChange={handleInputChange}
+              type="number"
+              min="1024"
+              max="65535"
+              required={connectionDetails.useSSH}
+              className="bg-[#1C2128] border-gray-800 focus:border-primary focus:ring-0 text-base"
+            />
+          </div>
+
+          <div className="flex justify-end space-x-3 pt-2">
+            <Button 
+              variant="outline" 
+              type="button" 
+              onClick={onClose}
+              className="text-base border-gray-800 hover:bg-[#1C2128] hover:text-white"
+            >
               Cancel
             </Button>
-            <Button type="submit">Connect</Button>
+            <Button 
+              type="submit" 
+              className="text-base bg-[#8957E5] hover:bg-[#8957E5]/90 text-white"
+            >
+              Setup Tunnel
+            </Button>
           </div>
         </form>
       </DialogContent>
