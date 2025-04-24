@@ -1,6 +1,6 @@
 [build]
 base = "."
-command = "NODE_ENV=production CI=false npm install && npm run build"
+command = "NODE_ENV=production CI=false npm install --include=dev && npm run build"
 publish = "dist"
 
 [[redirects]]
